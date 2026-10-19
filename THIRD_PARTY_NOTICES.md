@@ -1,8 +1,14 @@
 # Third-party software
 
-[Dear ImGui](https://github.com/ocornut/imgui) 1.92.7-docking (the in-game settings overlay; fetched at build time, pinned by commit in scripts/build-pc-compat.ps1), MIT License:
+The fix contains the components below; their sources are fetched at build time, pinned by commit in scripts/build-pc-compat.ps1. The same text is installed with the game as licenses\THIRD_PARTY_NOTICES.txt.
 
 ```
+Third-party software in the fix
+===============================
+
+Dear ImGui (the in-game settings overlay), version 1.92.7-docking,
+https://github.com/ocornut/imgui, used under the MIT License:
+
 The MIT License (MIT)
 
 Copyright (c) 2014-2026 Omar Cornut
@@ -24,31 +30,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-d3d8to9 (the optional Direct3D 9 renderer, Renderer=d3d9), version 1.16.0,
-https://github.com/crosire/d3d8to9, used under the BSD 2-Clause License:
-
-Copyright (C) 2015 Patrick Mours. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-  * Redistributions of source code must retain the above copyright notice,
-    this list of conditions and the following disclaimer.
-  * Redistributions in binary form must reproduce the above copyright notice,
-    this list of conditions and the following disclaimer in the documentation
-    and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 Build tools (not part of the fix): llvm-mingw (Apache-2.0 WITH LLVM-exception and the mingw-w64 licences). Optional texture tool: Real-ESRGAN ncnn-vulkan (BSD-3-Clause, models BSD-3-Clause).
