@@ -63,6 +63,16 @@ class AuditTests(unittest.TestCase):
             self.write(d, "WTP.exe", b"MZ")  # not ignored: found
             self.assertEqual([f[0] for f in ap.audit(d)], ["WTP.exe"])
 
+    def test_screenshots_only_in_docs_images_and_small(self):
+        with tempfile.TemporaryDirectory() as d:
+            self.write(d, "docs/images/gameplay.jpg", b"\xff\xd8" + b"\0" * 1000)
+            self.assertEqual(ap.audit(d), [])
+            self.write(d, "docs/images/huge.png", b"\x89PNG" + b"\0" * (ap.MAX_SCREENSHOT_BYTES + 1))
+            self.write(d, "docs/other/texture.png", b"\x89PNG")
+            self.write(d, "docs/images/sub/x.png", b"\x89PNG")  # only directly in docs/images
+            found = sorted(f[0].replace("\\", "/") for f in ap.audit(d))
+            self.assertEqual(found, ["docs/images/huge.png", "docs/images/sub/x.png", "docs/other/texture.png"])
+
     def test_allow_list_exempts_a_file(self):
         with tempfile.TemporaryDirectory() as d:
             self.write(d, "x.md", "A dash %s here\n" % DASH)

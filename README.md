@@ -8,6 +8,8 @@ Windows 10 and 11, the way a game should run today.
 You need your own game CD ([which one?](#what-you-need)). Then: download, run, play ([3 steps](#install-it-3-steps)).
 All versions: [Releases](https://github.com/kayliox/Party-Time-with-Winnie-the-Pooh-PC/releases).
 
+![A mini-game in 21:9 ultrawide with the fix](docs/images/gameplay-ultrawide.jpg)
+
 *Made with the help of AI. Without AI, this project would not have been possible ([more](#made-with-ai)).*
 
 - **Widescreen and ultrawide** (16:9, 21:9, 32:9): the 3D boards fill the whole screen, menus stay in proportion.
@@ -20,6 +22,25 @@ All versions: [Releases](https://github.com/kayliox/Party-Time-with-Winnie-the-P
 
 > This is a fan project. It does **not** include the game and is not made or supported by Disney or the original
 > developers. You need your own copy (see below).
+
+## See the difference
+
+**Ultrawide:** the same moment on the first board. The original shows a 4:3 picture; with the fix the board fills a
+21:9 screen and the score panel moves to the corner.
+
+![The original 4:3 picture on a wide screen](docs/images/compare-original-4x3.jpg)
+![The same moment with the fix in 21:9 ultrawide](docs/images/compare-ultrawide.jpg)
+
+**Sharper picture:** a detail of the title screen at the same size. Left: the game at its original 640 x 480.
+Right: with the fix (screen resolution, 2x supersampling and an HD texture pack).
+
+| Original (640 x 480) | With the fix |
+|---|---|
+| ![Title screen detail at the original 640 x 480](docs/images/compare-original-640x480.jpg) | ![The same detail with the fix](docs/images/compare-hd.jpg) |
+
+The higher resolution, supersampling and filtering come with the fix. The HD textures do not: the pack is made from
+the game's own artwork, so you make it yourself from your copy ([how](docs/HD-TEXTURES.md)). The screenshots above
+use such a pack.
 
 ## What you need
 

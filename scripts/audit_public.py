@@ -1,6 +1,7 @@
 """Checks a folder that is about to be published (a public game-fix repository) for game data and private information.
 
-Findings: files of game-data types (executables, disc images, movies, audio, images, saves, archives), binary or large
+Findings: files of game-data types (executables, disc images, movies, audio, images, saves, archives; small README
+screenshots are allowed in docs/images only, at most 1 MB each), binary or large
 files, private strings (local user paths, private network addresses, plus any rules from --patterns), and em/en
 dashes in published text. Exit code 0 = clean, 1 = findings (each printed with file and line), 2 = bad arguments.
 
@@ -20,6 +21,10 @@ GAME_DATA_EXT = {".exe", ".dll", ".iso", ".bin", ".cue", ".img", ".mdf", ".mds",
                  ".tim", ".sav", ".mcr", ".cab", ".hdr", ".chm", ".wri", ".7z", ".zip", ".rar", ".lib", ".a", ".o", ".obj",
                  ".pdb", ".res", ".ico", ".log"}
 MAX_BYTES = 512 * 1024
+# README screenshots (the game's own frame dumps, small JPEG/PNG) are the one kind of image allowed, and only here
+SCREENSHOT_DIR = os.path.join("docs", "images")
+SCREENSHOT_EXT = {".jpg", ".jpeg", ".png"}
+MAX_SCREENSHOT_BYTES = 1024 * 1024
 GENERIC = [
     (r"[A-Za-z]:[\\/]Users[\\/](?!%)[^\\/\s]+", "a local user path"),
     (r"/[a-z]/Users/[^/\s]+", "a local user path"),
@@ -80,6 +85,10 @@ def audit(root, allow=(), extra=()):
             continue
         path = os.path.join(root, rel)
         ext = os.path.splitext(rel)[1].lower()
+        if ext in SCREENSHOT_EXT and os.path.dirname(os.path.normpath(rel)) == SCREENSHOT_DIR:
+            if os.path.getsize(path) > MAX_SCREENSHOT_BYTES:
+                findings.append((rel, 0, "screenshot larger than %d KB" % (MAX_SCREENSHOT_BYTES // 1024)))
+            continue
         if ext in GAME_DATA_EXT:
             findings.append((rel, 0, "file type %s is not allowed (game data or a build output)" % ext))
             continue
