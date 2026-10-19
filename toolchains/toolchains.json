@@ -1,0 +1,39 @@
+{
+ "schema": 1,
+ "comment": "Pinned host toolchains, installed without admin rights under installRoot by scripts/setup-toolchains.ps1. Each download is checked against its SHA-256.",
+ "installRoot": "%USERPROFILE%\\Tools",
+ "tools": [
+  {
+   "id": "llvm-mingw",
+   "version": "20261006",
+   "purpose": "Clang + LLD toolchain targeting x86_64-w64-mingw32 (UCRT). Builds PS2Recomp's tools and the native Windows game runners without MSVC.",
+   "license": "LLVM: Apache-2.0 WITH LLVM-exception; mingw-w64 runtime/headers: ZPL-2.1 / MIT-style (see the LICENSE files inside the archive)",
+   "url": "https://github.com/mstorsjo/llvm-mingw/releases/download/20261006/llvm-mingw-20261006-ucrt-x86_64.zip",
+   "sha256": "317492c456aa27ee607a5919f1d2d38dcdc1112516a24d0bf4b00d078f52d17a",
+   "extractDir": "",
+   "home": "llvm-mingw-20261006-ucrt-x86_64",
+   "bin": "llvm-mingw-20261006-ucrt-x86_64\\bin",
+   "probe": [
+    "x86_64-w64-mingw32-clang++.exe",
+    "--version"
+   ],
+   "optional": false
+  },
+  {
+   "id": "realesrgan",
+   "version": "0.2.5.0 (ncnn-vulkan 20220424)",
+   "optional": true,
+   "purpose": "Offline 4x super-resolution of dumped game textures for HD texture packs (pc-compat route); runs on any Vulkan GPU. An external tool: it is run on texture dumps in work/, never shipped with a game.",
+   "license": "Real-ESRGAN and its models: BSD-3-Clause (xinntao/Real-ESRGAN); ncnn-vulkan port: MIT (xinntao/Real-ESRGAN-ncnn-vulkan); vcomp140.dll: Microsoft VC++ redistributable",
+   "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip",
+   "sha256": "abc02804e17982a3be33675e4d471e91ea374e65b70167abc09e31acb412802d",
+   "sha256Note": "GitHub publishes no digest for this 2022 asset; hash recorded at first download (2026-10-18) and enforced from then on.",
+   "extractDir": "realesrgan-ncnn-vulkan-20220424",
+   "home": "realesrgan-ncnn-vulkan-20220424",
+   "bin": "realesrgan-ncnn-vulkan-20220424",
+   "probe": [
+    "realesrgan-ncnn-vulkan.exe"
+   ]
+  }
+ ]
+}

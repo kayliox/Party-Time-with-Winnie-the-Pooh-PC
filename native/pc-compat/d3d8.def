@@ -1,0 +1,6 @@
+LIBRARY d3d8.dll
+EXPORTS
+    Direct3DCreate8 = Sparta_Direct3DCreate8@4
+    ValidatePixelShader = Sparta_ValidatePixelShader@16
+    ValidateVertexShader = Sparta_ValidateVertexShader@20
+    DebugSetMute = Sparta_DebugSetMute@0

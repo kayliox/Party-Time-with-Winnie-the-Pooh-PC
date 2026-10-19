@@ -1,0 +1,35 @@
+{
+  "description": "DPTWP.sav: the PS1 memory card file BESCES-03705 as the PC version stores it next to WTP.exe. Layout from the decompiled save code (CDDHCard, FUN_00478100/00478190/00478200/004782e0) and checked against a save written by the game on 2026-10-19 (header zero, byte-sum checksum, profile defaults). Research: docs/research/2026-10-19-pooh-unlocks/report.md.",
+  "file": "DPTWP.sav",
+  "size": 8192,
+  "checksum": { "type": "byte-sum-u32le", "from": 0, "to": 8188, "at": 8188 },
+  "slots": { "count": 4, "offset": 256, "size": 80, "name": { "offset": 0, "size": 9 } },
+  "fields": {
+    "unlocks": { "offset": 26, "size": 25, "type": "u8", "doc": "Quick Play mini-game levels, 1 = unlocked: 5 mini-games x Playground 1-5 (index 5 x game + level - 1); a new profile has 4 (games 0 and 3, Playgrounds 1-2)" },
+    "adventureHunny": { "offset": 52, "type": "u16", "doc": "Adventure hunny pots" },
+    "adventureTreasure": { "offset": 54, "type": "u16", "doc": "Adventure treasure (the game's 'Treasure' save info)" },
+    "settingsX": { "offset": 64, "type": "u8", "doc": "screen position X" },
+    "settingsY": { "offset": 65, "type": "u8", "doc": "screen position Y" },
+    "adventureBoard": { "offset": 72, "type": "u8", "doc": "Adventure board reached: 0-2, 255 = never started; Multiplayer offers boards up to this one" },
+    "adventureCharacter": { "offset": 73, "type": "u8", "doc": "Adventure character, 255 = none" },
+    "difficulty": { "offset": 74, "type": "u8", "doc": "0 Easy, 1 Normal, 2 Hard" },
+    "movies": { "offset": 76, "type": "u32", "doc": "Movie Selection entries 1-7 as bits 0-6 (3 once an Adventure has started)" }
+  },
+  "presets": {
+    "unlock-all": {
+      "doc": "What the game itself grants when a player wins the last Adventure board: every mini-game level and every movie. The Adventure progress stays as it is.",
+      "writes": [
+        { "field": "unlocks", "set": 1 },
+        { "field": "movies", "or": 127 }
+      ]
+    },
+    "unlock-all-boards": {
+      "doc": "unlock-all, and Multiplayer boards 2 and 3 as well. The same byte is the Adventure progress: a saved Adventure then continues on board 3.",
+      "writes": [
+        { "field": "unlocks", "set": 1 },
+        { "field": "movies", "or": 127 },
+        { "field": "adventureBoard", "set": 2 }
+      ]
+    }
+  }
+}

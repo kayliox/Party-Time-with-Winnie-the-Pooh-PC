@@ -1,0 +1,269 @@
+{
+  "serial": "PC-DPTWP-UK",
+  "title": "Disney's Party Time with Winnie the Pooh (PC)",
+  "region": "Europe",
+  "pcCompat": {
+    "platform": "windows-x86",
+    "disc": {
+      "volumeLabel": null,
+      "isoSha256": "e661512eb3972dde0919d30b4f8a879d96e275b2656e34bf7ea439f8cf51056f",
+      "isoSize": 578942976
+    },
+    "executable": {
+      "path": "WTP.exe",
+      "sha256": "22653cb577d1d8309d58d4e02f2c83f73b6e65e483550733d698b56301341c42"
+    },
+    "install": [
+      {
+        "from": "setup/Game",
+        "to": "."
+      }
+    ],
+    "cd": [
+      "Datas"
+    ],
+    "proxyDll": "d3d8.dll",
+    "installer": {
+      "title": "Disney's Party Time with Winnie the Pooh",
+      "edition": "PC CD-ROM, UK English edition, Disney Interactive 2002",
+      "folderName": "Party Time with Winnie the Pooh",
+      "shortcutName": "Party Time with Winnie the Pooh",
+      "discMarker": "Datas/INI/Menu.ini",
+      "outputName": "PartyTimePooh-PCFix-Setup",
+      "playerReadme": "installer/How to play.txt"
+    },
+    "texturePack": {
+      "model": "realesr-animevideov3",
+      "scale": 4,
+      "sizeScale": [
+        "128x128=8"
+      ]
+    },
+    "regression": {
+      "scenarios": [
+        {
+          "name": "menus-race",
+          "seconds": 95,
+          "keys": "m700:1c:20,f2000:1c:200,f9000:18:200,f12000:18:200,f15000:18:200,f17000:d0,f17600:d0,f18200:d0,f19000-22000/600:cd,f23500:18:200,f27500:d0,f28500:d0,f30000:18:200,f33000-150000/3000:18:200",
+          "dumpMs": 5000,
+          "minDrawnFrames": 10,
+          "maxMissingTextures": 1,
+          "expectLog": [
+            "patch SavePromptYes1: applied",
+            "patch FrustumHorPlus: applied",
+            "hook DebugPrint: .* built-in debug_print",
+            "device hook\\(s\\) had been written back by the runtime .*re-applied",
+            {
+              "rx": "soft edges for stencil replacements",
+              "needs": "textures"
+            },
+            "offscreen scene \\d+x\\d+ ready",
+            "[1-9]\\d* HUD group moves",
+            "movie: video window .* -> 760,0 1920x1440"
+          ],
+          "forbidLog": [
+            "refused",
+            "malformed",
+            "unknown built-in",
+            "cannot load"
+          ]
+        },
+        {
+          "name": "board-walk",
+          "seconds": 70,
+          "keys": "m700:1c:20,f2000:1c:200,f9000:18:200,f12000:18:200,f15000:18:200,f17000:d0,f17600:d0,f18200:d0,f19000-22000/600:cd,f23500:18:200,f27000:18:200,f30000:18:200,f40000-64000/2000:18:200",
+          "dumpMs": 500,
+          "dumpFromMs": 50000,
+          "minDrawnFrames": 10,
+          "sideBlack": {
+            "fromMs": 56000,
+            "toMs": 63500,
+            "max": 0.2
+          },
+          "expectLog": [
+            "game: CTPGMainGame: Loading level 1"
+          ],
+          "forbidLog": [
+            "refused",
+            "malformed",
+            "unknown built-in"
+          ]
+        },
+        {
+          "name": "save",
+          "seconds": 66,
+          "deleteFiles": [
+            "DPTWP.sav"
+          ],
+          "keys": "m700:1c:20,f2000:1c:200,f9000:18:200,f12000:18:200,f15000:18:200,f17000:d0,f17600:d0,f18200:d0,f19000-22000/600:cd,f23500:18:200,f27000:18:200,f30000:18:200,f33000:18:200,f35000:18:200,f37000:18:200,f45000:1c:200,f46500:d0:150,f48000:18:200,f51000:18:200,f53000:18:200",
+          "dumpMs": 2000,
+          "dumpFromMs": 40000,
+          "expectLog": [
+            "game: CDDHCard::Write:OK"
+          ],
+          "expectFiles": [
+            {
+              "path": "DPTWP.sav",
+              "size": 8192
+            }
+          ],
+          "forbidLog": [
+            "CDDHCard::Write:write error",
+            "CDDHCard::Write:file not create"
+          ]
+        },
+        {
+          "name": "reload",
+          "seconds": 28,
+          "keys": "m700:1c:20,f2000:1c:200",
+          "dumpMs": 4000,
+          "dumpFromMs": 12000,
+          "expectLog": [
+            "game: MEM CARD -> FREE : \\d+, FILE\\? : 1",
+            "game: CDDHCard::Read:OK"
+          ],
+          "forbidLog": [
+            "CDDHCard::Read:checksum error"
+          ]
+        },
+        {
+          "name": "unlock-all",
+          "seconds": 26,
+          "before": [
+            [
+              "python",
+              "{repo}/scripts/pc_save_edit.py",
+              "apply",
+              "--serial",
+              "PC-DPTWP-UK",
+              "--save",
+              "{game}/DPTWP.sav",
+              "--preset",
+              "unlock-all"
+            ]
+          ],
+          "keys": "m700:1c:20,f2000:1c:200,f6000:18:200",
+          "dumpMs": 4000,
+          "dumpFromMs": 14000,
+          "expectLog": [
+            "game: CDDHCard::Read:OK",
+            "ProfileMovies=127",
+            "ProfileUnlocks=16843009"
+          ],
+          "forbidLog": [
+            "CDDHCard::Read:checksum error"
+          ]
+        },
+        {
+          "name": "overlay",
+          "seconds": 30,
+          "keys": "m700:1c:20",
+          "dumpMs": 1000,
+          "dumpFromMs": 8000,
+          "minDrawnFrames": 10,
+          "env": {
+            "SPARTA_OVERLAY_OPEN_MS": "f1500",
+            "SPARTA_OVERLAY_TAB": "0",
+            "SPARTA_OVERLAY_KEYS": "f3000:Down,f3500:Enter,f4500:Escape,f5000:Down,f5500:Down,f6000:Enter,f6500:Up,f7000:Enter,f8000:Tab1,f8500:Down,f9000:Space,f10500:Space,f11500:F1"
+          },
+          "expectLog": [
+            "overlay: ready \\(F1",
+            "overlay: \\[Display\\] FpsLimit=60",
+            "target 60 fps",
+            "display: live change: side fill black",
+            "display: live change: side fill ambient",
+            "game: CTPGMainGame: Loading level"
+          ],
+          "forbidLog": [
+            "overlay: \\[Display\\] (Width|Height)=",
+            "exception 0xc0000005",
+            "overlay: initialisation failed"
+          ],
+          "expectIni": [
+            {
+              "key": "Display.FpsLimit",
+              "value": "60"
+            },
+            {
+              "key": "Display.SideFill",
+              "value": "ambient"
+            }
+          ]
+        },
+        {
+          "name": "autosave",
+          "seconds": 44,
+          "deleteFiles": [
+            "DPTWP.sav"
+          ],
+          "keys": "m700:1c:20,f2000:1c:200,f9000:18:200,f12000:18:200,f15000:18:200,f17000:d0,f17600:d0,f18200:d0,f19000-22000/600:cd,f23500:18:200,f27000:18:200,f30000:18:200,f33000:18:200,f35000:18:200,f37000:18:200",
+          "dumpMs": 4000,
+          "dumpFromMs": 30000,
+          "expectLog": [
+            "autosave: on \\(",
+            "autosave: saved \"[^\"]+\" to slot [1-4] \\(progress changed\\)",
+            "game: CDDHCard::Write:OK"
+          ],
+          "forbidLog": [
+            "autosave: refused",
+            "save FAILED",
+            "holds another profile",
+            "exception 0xc0000005"
+          ],
+          "expectFiles": [
+            {
+              "path": "DPTWP.sav",
+              "size": 8192
+            }
+          ]
+        },
+        {
+          "name": "autosave-close",
+          "seconds": 60,
+          "deleteFiles": [
+            "DPTWP.sav"
+          ],
+          "keys": "m700:1c:20,f2000:1c:200,f9000:18:200,f12000:18:200,f15000:18:200,f17000:d0,f17600:d0,f18200:d0,f19000-22000/600:cd,f23500:18:200,f27000:18:200,f30000:18:200,f33000:18:200,f35000:18:200,f37000:18:200",
+          "ini": {
+            "Autosave.StableMs": "600000"
+          },
+          "closeAfterSeconds": 41,
+          "dumpMs": 4000,
+          "dumpFromMs": 30000,
+          "expectLog": [
+            "autosave: saved \"[^\"]+\" to slot [1-4] \\(window closed\\)",
+            "game: CDDHCard::Write:OK",
+            "audio: test mute undone"
+          ],
+          "forbidLog": [
+            "autosave: refused",
+            "save FAILED",
+            "holds another profile",
+            "\\(progress changed\\)",
+            "exception 0xc0000005"
+          ],
+          "expectFiles": [
+            {
+              "path": "DPTWP.sav",
+              "size": 8192
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "PS1 port: the PC executable still carries the PS1 serial SCES-03705, PS1 formats (TIM, STR, VAG/XA names) and Doki Denki's VenusLibPC, a PS1-hardware imitation layer (GPU primitives, VRAM/CLUT, memory card, pads) drawn through Direct3D 8. Engine paths C:\\NC2_PSX_RT (Kalisto's Nightmare Creatures 2 engine lineage).",
+    "Rendering: PS1 primitives in a 512x240 coordinate space are mapped to the back buffer with x*W/512, y*H/240 (W/H = 0x01c67494/0x0073d3f8); painter's order is emulated with a depth value per primitive (1 - n/30000). All vertices go through FUN_00493cee -> FUN_00493825.",
+    "Video modes: only 640x480, 800x600, 1024x768 (16/32 bit) via registry 'Mode Video Index' 0-5 (FUN_00485e76); without the value the game opens a 640x480 window (its windowed path), which the layer upsizes.",
+    "Launch failure on modern Windows (likely causes, see docs/WORKLOG.md): no CD-ROM drive with Datas\\INI\\Menu.ini (FUN_0048685f); the launcher stores a DirectDraw driver index as 'Driver Video Index' that Direct3D 8 reuses as adapter index (fails with extra/virtual display adapters such as Parsec's); input settings missing without the launcher (FUN at 0x4929.. returns 0 when a KeyString is absent).",
+    "Timing: frames are timed in whole milliseconds (QPC -> ms, ring buffer of 120 frame times, FUN_00493490); FUN_004868f8 caps at 33 ms (30 fps). Movement uses a delta (FUN_00489daa: ms * 0x780000 / 1000, clamped to 0x60000). A 0 ms frame would stall the fps averaging loop, so the layer paces frames at >= 1 ms.",
+    "Input: DirectInput 8 keyboard (two layouts, KeyString0-5 / 6-11: arrows+O/P and R/F/G/D+Q/A by default) and up to 2 DirectInput pads by instance GUID (CONTROL_GUID_<pad><1..5>); Enter and Delete are extra keys for player 1.",
+    "Text: nine 128x128 font sheets (white glyphs, 1-bit alpha; FNT_00 and FNT_07 also hold button icons) with LATBIG/LATSMALL.BIN metrics, bound with POINT filtering and drawn as alpha-tested cut-outs (ALPHAFUNC NOTEQUAL, ref 0, no blending) in the main render loop (FUN at WTP.c line ~68530).",
+    "Texture uploads leave stale VRAM data (a palette row at y=1, x=45..61) in fully transparent pixels; it changes between runs, so texture fingerprints must ignore transparent pixels' colour (layer fingerprint since 2026-10-18).",
+    "The game records three state blocks at startup (~1.4 s); the D3D8 runtime then writes its own SetTexture/SetTextureStageState back into the device's vtable (pc.d3d8.runtime-rewrites-device-vtable).",
+    "Saves and unlocks: games/PC-DPTWP-UK/save-format.json (4 profiles of 0x50 bytes, byte-sum checksum), scripts/pc_save_edit.py presets unlock-all / unlock-all-boards; unlock conditions and the title-screen cheat (gamepad only, or patch UnlockNewProfiles) in docs/research/2026-10-19-pooh-unlocks/report.md.",
+    "Draw order: every triangle gets z = 1 - n/10000 by its order-table position; the HUD is the trailing run of screen sprites (HudSpread). The game never queries the back buffer, render target or viewport (offscreen scene for Supersample/SideFill is safe), but it places the DirectShow video window from its render size.",
+    "Settings overlay (F1 / Back+Start, pc.overlay.settings-overlay): the game lays out screens once from its render size, so supersampling, resolution and aspect apply after a restart (O-120); frame rate, filtering, gap fill, HUD spread and the HD pack change live. The title screen idles into an attract demo (level load) after about 15 s."
+  ]
+}

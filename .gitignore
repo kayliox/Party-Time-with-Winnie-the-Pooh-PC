@@ -1,0 +1,13 @@
+# Build outputs and anything made from the game never go into this repository.
+build/
+*.exe
+*.dll
+*.iso
+*.bin
+*.cue
+*.sav
+textures/
+dump/
+regression/
+*.log
+__pycache__/

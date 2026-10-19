@@ -1,0 +1,38 @@
+Disney's Party Time with Winnie the Pooh - unofficial PC fix
+=============================================================
+
+This folder is your own copy of the game, prepared from your CD by the fix setup.
+
+PLAYING
+- Start the game with the shortcut "Party Time with Winnie the Pooh" (desktop or Start menu), or WTP.exe in this folder.
+- Do not start Launcher.exe: the fix sets everything up itself, the old launcher is not needed.
+- The CD does not have to be in the drive.
+
+SETTINGS (press F1 in the game, or Back + Start on a gamepad)
+- Display: window mode (borderless, exclusive fullscreen, window), resolution, frame rate limit (120 is the game's own speed).
+- Graphics: supersampling (smooth edges), anisotropic filtering, ultrawide side fill and HUD position.
+- Textures: HD texture pack on or off (only if you made one), smooth text.
+- Game: autosave on or off, "Save now", sound status.
+- Changes are saved at once (spartacompat.ini in this folder).
+
+SAVING
+- The original game saves only from Adventure > Pause > Save game.
+- The fix adds autosave: your profile is saved a moment after your progress changes, and when you close the game
+  (also with Alt+F4). It never writes over another player's profile.
+- Your save file is DPTWP.sav in this folder. Copy it somewhere to back it up.
+
+IF SOMETHING IS WRONG
+- No sound: open the Windows volume mixer and check that the game is not muted (the F1 overlay, Game tab, shows it too).
+- The game does not start or crashes: send spartacompat.log and spartacompat.prev.log from this folder with your report.
+- Your antivirus may warn about d3d8.dll: the fix works by placing this file next to the game (a common technique for
+  game fixes). Its source code is public.
+
+REMOVING THE GAME
+- Delete this folder and the two shortcuts. Nothing was written to the Windows registry.
+
+UPDATES AND HELP
+- New versions, instructions and help: https://github.com/kayliox/Party-Time-with-Winnie-the-Pooh-PC
+- To update, run the new setup and choose this folder: your saves and settings stay.
+
+The game itself belongs to Disney. This fix is a fan project, not made or supported by Disney or the original developers.
+It was made with the help of AI.
